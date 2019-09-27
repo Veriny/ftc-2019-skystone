@@ -9,8 +9,8 @@ public class Drivetrain {
     private DcMotor bottomLeft;
     public static final int TICKS_PER_ROTATION = 1440;
     public static final int WHEEL_DIAMETER = 4;
-    public static final double 김정은 = 17.5;
-    public static final double BOT_CIRCUMFERENCE = Math.PI*김정은;
+    public static final double BOT_DIAMETER = 17.5;
+    public static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
     public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl) {
         this.topLeft = tl;
         this.bottomRight = br;
@@ -38,10 +38,6 @@ public class Drivetrain {
 
     }
 
-    public double calculateTicks(double inches) {
-        //TODO: Calculate ticks to turn for whatever shit
-
-    }
 
 
 }
