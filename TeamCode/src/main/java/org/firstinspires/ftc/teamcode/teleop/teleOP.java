@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 public class teleOP extends OpMode {
     //TODO: Create instance variable for drivetrain
     public Drivetrain drivetrain;
+    public ClawArm clawArm;
 
     @Override
     public void init() {
@@ -26,6 +28,7 @@ public class teleOP extends OpMode {
     public void loop() {
         //TODO: Controls
         drivetrain.controls(gamepad1);
+        clawArm.controls(gamepad2);
     }
 
     @Override
