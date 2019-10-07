@@ -38,19 +38,27 @@ public class ClawArm {
             armMotor.setPower(1);
             clawServo.setPosition(0.5);
             wristServo.setPosition(0.25);
-        }
+        }   //max.jpeg
       */
 
         if(gp.a && armValue <= 3) {
-                armValue++;
-                armMotor.setTargetPosition(armPosition[armValue]);
-                wristServo.setPosition(wristPosition[armValue]);
+            dump();
         }
 
         if(gp.b && armValue >= 0) {
-                armValue--;
-                armMotor.setTargetPosition(armPosition[armValue]);
-                wristServo.setPosition(wristPosition[armValue]);
+            grab();
         }
+    }
+
+    public void dump() {
+        armValue++;
+        armMotor.setTargetPosition(armPosition[armValue]);
+        wristServo.setPosition(wristPosition[armValue]);
+    }
+
+    public void grab() {
+        armValue--;
+        armMotor.setTargetPosition(armPosition[armValue]);
+        wristServo.setPosition(wristPosition[armValue]);
     }
 }
