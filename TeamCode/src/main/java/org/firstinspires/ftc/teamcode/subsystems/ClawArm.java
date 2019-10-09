@@ -4,35 +4,44 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class ClawArm {
     public DcMotor armMotor;
     public Servo clawServo;
     public Servo wristServo;
 
+    public int armValue = 0;
 
-    protected int armValue = 0;
-
-    protected int armGrabPosition = 50;
-    protected int armDumpPosition1 = 800;
-    protected int armDumpPosition2 = 900;
-    protected int armDumpPosition3 = 1000;
-    protected int[] armPosition = {armGrabPosition, armDumpPosition1, armDumpPosition2, armDumpPosition3};
+    protected int armGrabPosition = -50;
+    protected int armDumpPosition1 = -800;
+    protected int armDumpPosition2 = -900;
+    protected int armDumpPosition3 = -1000;
+    //protected int[] armPosition = {armGrabPosition, armDumpPosition1, armDumpPosition2, armDumpPosition3};
 
     protected double wristGrabPosition = 0.0;
     protected double wristDumpPosition1 = 1.0;
     protected double wristDumpPosition2 = 1.1;
     protected double wristDumpPosition3 = 1.2;
-    protected double[] wristPosition = {wristGrabPosition, wristDumpPosition1, wristDumpPosition2, wristDumpPosition3};
+    //protected double[] wristPosition = {wristGrabPosition, wristDumpPosition1, wristDumpPosition2, wristDumpPosition3};
 
 
-    public ClawArm(DcMotor aM, Servo cS, Servo wS) {
+    public ClawArm(DcMotor aM) { //, Servo cS, Servo wS) {
         armMotor = aM;
-        clawServo = cS;
-        wristServo = wS;
+       // clawServo = cS;
+        //wristServo = wS;
         //do I need to move anything on init?
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        stop();
+        resetEncoders();
     }
 
-    public void controls(Gamepad gp) {
+    public void stop() {
+        armMotor.setPower(0.0);
+    }
+
+    public void controls(Gamepad gp, Telemetry telemetry) {
      /*   if(gp.x || gp.a || gp.y || gp.b || gp.right_bumper || gp.left_bumper || gp.right_trigger > 0.1 ||
         gp.left_trigger > 0.1 || gp.dpad_down || gp.dpad_left || gp.dpad_right || gp.dpad_up) {
             armMotor.setPower(1);
@@ -40,25 +49,69 @@ public class ClawArm {
             wristServo.setPosition(0.25);
         }   //max.jpeg
       */
-
-        if(gp.a && armValue <= 3) {
-            dump();
+        //TODO: fix the jump of armValue from 0 to 3 - wait on input?
+        if(gp.a) {
+            //armValue--;
+            grab();
+            telemetry.addData("armValue ", armValue);
+            telemetry.update();
         }
 
-        if(gp.b && armValue >= 0) {
-            grab();
+        if(gp.b) {
+            //armValue++;
+            dump();
+            telemetry.addData("armValue ", armValue);
+            telemetry.update();
         }
     }
 
     public void dump() {
-        armValue++;
-        armMotor.setTargetPosition(armPosition[armValue]);
-        wristServo.setPosition(wristPosition[armValue]);
+        if(armValue == 0) {
+            armValue++;
+            armMotor.setTargetPosition(armDumpPosition1);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+            //wristServo.setPosition(wristPosition[armValue]);
+        }
+        if(armValue == 1) {
+            armValue++;
+            armMotor.setTargetPosition(armDumpPosition2);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+        }
+        if(armValue == 2) {
+            armValue++;
+            armMotor.setTargetPosition(armDumpPosition3);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+        }
     }
 
     public void grab() {
-        armValue--;
-        armMotor.setTargetPosition(armPosition[armValue]);
-        wristServo.setPosition(wristPosition[armValue]);
+        if(armValue == 1) {
+            armValue--;
+            armMotor.setTargetPosition(armGrabPosition);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+            //wristServo.setPosition(wristPosition[armValue]);
+        }
+        if(armValue == 2) {
+            armValue--;
+            armMotor.setTargetPosition(armDumpPosition1);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+            //wristServo.setPosition(wristPosition[armValue]);
+        }
+        if(armValue == 3) {
+            armValue--;
+            armMotor.setTargetPosition(armDumpPosition2);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2);
+            //wristServo.setPosition(wristPosition[armValue]);
+        }
+    }
+
+    public void resetEncoders() {
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }
