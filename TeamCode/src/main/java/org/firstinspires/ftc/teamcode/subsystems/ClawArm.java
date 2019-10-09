@@ -14,8 +14,8 @@ public class ClawArm {
     public int armValue = 0;
 
     protected int armGrabPosition = -50;
-    protected int armDumpPosition1 = -500;
-    protected int armDumpPosition2 = -600;
+    protected int armDumpPosition1 = -400;
+    protected int armDumpPosition2 = -550;
     protected int armDumpPosition3 = -700;
     //protected int[] armPosition = {armGrabPosition, armDumpPosition1, armDumpPosition2, armDumpPosition3};
 
