@@ -11,11 +11,19 @@ public class Drivetrain {
     public static final int WHEEL_DIAMETER = 4;
     public static final double BOT_DIAMETER = 17.5;
     public static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
-    public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl) {
+    public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl, Boolean isAuto) {
         this.topLeft = tl;
         this.bottomRight = br;
         this.topRight = tr;
         this.bottomLeft = bl;
+
+        if(isAuto) {
+            topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        }
     }
     //김정은
     public void controls(Gamepad gp) {
@@ -29,8 +37,20 @@ public class Drivetrain {
         topRight.setPower((-x)+(-y)+(-z));
     }
 
-    public void drive(double distance) {
+    public void drive(double distance, double power) {
         //TODO: Write method for driving
+        double position  = calculateTicks(distance);
+        motorDrive(bottomLeft, position, power);
+        motorDrive(bottomRight, position, -power);
+        motorDrive(topLeft, position, power);
+        motorDrive(topRight, position, -power);
+
+
+    }
+
+    public void strafe(double distance) {
+        //TODO: Write code for strafing
+
     }
 
     public void turn(double degrees) {
@@ -38,7 +58,17 @@ public class Drivetrain {
 
     }
 
+    public void motorDrive(DcMotor motor, double ticks, double power) {
+        //TODO: MotorDrive
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setTargetPosition((int) ticks);
+        motor.setPower(power);
+    }
 
+    public double calculateTicks(double inches) {
+        return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION;
+
+    }
 
 }
 
