@@ -3,8 +3,7 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.subsystems.ClawArm;
+import org.firstinspires.ftc.teamcode.prototypes.ClawArm;
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
 

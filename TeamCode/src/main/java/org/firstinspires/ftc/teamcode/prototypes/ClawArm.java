@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.prototypes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -111,5 +111,14 @@ public class ClawArm {
             armMotor.setPower(0.2);
             //wristServo.setPosition(wristPosition[armValue]);
         }
+    }
+
+    public void jigglypuff() {
+        while (armMotor.isBusy()) {
+
+
+        }
+
+
     }
 }
