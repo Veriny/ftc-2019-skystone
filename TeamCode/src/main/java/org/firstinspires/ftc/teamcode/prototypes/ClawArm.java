@@ -45,7 +45,6 @@ public class ClawArm {
         }   //max.jpeg
       */
 
-        //TODO: fix the jump of armValue from 0 to 3 - wait on input?
         if(gp.a) {
             //armValue--;
             if(!armMotor.isBusy()) {
@@ -74,13 +73,13 @@ public class ClawArm {
             armMotor.setPower(0.2);
             //wristServo.setPosition(wristPosition[armValue]);
         }
-        if(armValue == 1) {
+        else if(armValue == 1) {
             armValue++;
             armMotor.setTargetPosition(armDumpPosition2);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
         }
-        if(armValue == 2) {
+        else if(armValue == 2) {
             armValue++;
             armMotor.setTargetPosition(armDumpPosition3);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -90,27 +89,30 @@ public class ClawArm {
 
 
     public void grab() {
-        if(armValue == 1) {
-            armValue--;
-            armMotor.setTargetPosition(armGrabPosition);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            //wristServo.setPosition(wristPosition[armValue]);
-        }
-        if(armValue == 2) {
+
+        if(armValue == 3) {
+        armValue--;
+        armMotor.setTargetPosition(armDumpPosition2);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.2);
+        //wristServo.setPosition(wristPosition[armValue]);
+    }
+        else if(armValue == 2) {
             armValue--;
             armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
             //wristServo.setPosition(wristPosition[armValue]);
         }
-        if(armValue == 3) {
+        else if(armValue == 1) {
             armValue--;
-            armMotor.setTargetPosition(armDumpPosition2);
+            armMotor.setTargetPosition(armGrabPosition);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
             //wristServo.setPosition(wristPosition[armValue]);
         }
+
+
     }
 
     public void jigglypuff() {
