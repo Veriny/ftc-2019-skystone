@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.prototypes;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -17,19 +18,19 @@ public class ClawArm {
     protected int armDumpPosition1 = -400;
     protected int armDumpPosition2 = -550;
     protected int armDumpPosition3 = -700;
-    //protected int[] armPosition = {armGrabPosition, armDumpPosition1, armDumpPosition2, armDumpPosition3};
+
 
     protected double wristGrabPosition = 0.0;
-    protected double wristDumpPosition1 = 1.0;
-    protected double wristDumpPosition2 = 1.1;
-    protected double wristDumpPosition3 = 1.2;
+    protected double wristDumpPosition1 = 0.6;
+    protected double wristDumpPosition2 = 0.8;
+    protected double wristDumpPosition3 = 1.0;
     //protected double[] wristPosition = {wristGrabPosition, wristDumpPosition1, wristDumpPosition2, wristDumpPosition3};
 
 
-    public ClawArm(DcMotor aM) { //, Servo cS, Servo wS) {
+    public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
-       // clawServo = cS;
-        //wristServo = wS;
+        clawServo = cS;
+        wristServo = wS;
         //do I need to move anything on init?
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
@@ -71,6 +72,7 @@ public class ClawArm {
             armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition1);
             //wristServo.setPosition(wristPosition[armValue]);
         }
         else if(armValue == 1) {
@@ -78,12 +80,14 @@ public class ClawArm {
             armMotor.setTargetPosition(armDumpPosition2);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition2);
         }
         else if(armValue == 2) {
             armValue++;
             armMotor.setTargetPosition(armDumpPosition3);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition3);
         }
     }
 
@@ -95,6 +99,7 @@ public class ClawArm {
         armMotor.setTargetPosition(armDumpPosition2);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.2);
+        wristServo.setPosition(wristDumpPosition2);
         //wristServo.setPosition(wristPosition[armValue]);
     }
         else if(armValue == 2) {
@@ -102,6 +107,7 @@ public class ClawArm {
             armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition1);
             //wristServo.setPosition(wristPosition[armValue]);
         }
         else if(armValue == 1) {
@@ -109,9 +115,16 @@ public class ClawArm {
             armMotor.setTargetPosition(armGrabPosition);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristGrabPosition);
             //wristServo.setPosition(wristPosition[armValue]);
         }
+    }
 
+    public void hold() {
+
+    }
+
+    public void release() {
 
     }
 
