@@ -16,8 +16,11 @@ public class Intake {
         if(gp.left_bumper) {
             intake();
         }
-        if(gp.right_bumper) {
-            outturn();
+        else if(gp.right_bumper) {
+            outtake();
+        }
+        else {
+            stop();
         }
     }
 
@@ -26,8 +29,13 @@ public class Intake {
         rightMotor.setPower(-1.0);
     }
 
-    public void outturn() {
+    public void outtake() {
         leftMotor.setPower(-1.0);
         rightMotor.setPower(1.0);
+    }
+
+    public void stop() {
+        leftMotor.setPower(0.0);
+        rightMotor.setPower(0.0);
     }
 }
