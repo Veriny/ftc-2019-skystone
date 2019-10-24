@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.prototypes;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,12 +19,13 @@ public class ClawArm {
     protected int armDumpPosition3 = -700;
 
 
-    protected double wristGrabPosition = 0.0;
+    protected double wristGrabPosition = 0.45;
     protected double wristDumpPosition1 = 0.6;
-    protected double wristDumpPosition2 = 0.8;
-    protected double wristDumpPosition3 = 1.0;
-    //protected double[] wristPosition = {wristGrabPosition, wristDumpPosition1, wristDumpPosition2, wristDumpPosition3};
+    protected double wristDumpPosition2 = 0.75;
+    protected double wristDumpPosition3 = 0.9;
 
+    double clawReleasePosition = 0.0;
+    double clawHoldPosition = 0.5;
 
     public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
@@ -62,6 +62,13 @@ public class ClawArm {
                 telemetry.addData("armValue ", armValue);
                 telemetry.update();
             }
+        }
+
+        if(gp.x) {
+            release();
+        }
+        else if(gp.y) {
+            hold();
         }
     }
 
@@ -121,11 +128,11 @@ public class ClawArm {
     }
 
     public void hold() {
-
+        clawServo.setPosition(clawHoldPosition);
     }
 
     public void release() {
-
+        clawServo.setPosition(clawReleasePosition);
     }
 
     public void jigglypuff() {
