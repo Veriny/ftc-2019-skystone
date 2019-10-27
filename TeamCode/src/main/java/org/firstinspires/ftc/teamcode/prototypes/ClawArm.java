@@ -19,19 +19,20 @@ public class ClawArm {
     protected int armDumpPosition1 = -400;
     protected int armDumpPosition2 = -550;
     protected int armDumpPosition3 = -700;
-    //protected int[] armPosition = {armGrabPosition, armDumpPosition1, armDumpPosition2, armDumpPosition3};
-
-    protected double wristGrabPosition = 0.0;
-    protected double wristDumpPosition1 = 1.0;
-    protected double wristDumpPosition2 = 1.1;
-    protected double wristDumpPosition3 = 1.2;
-    //protected double[] wristPosition = {wristGrabPosition, wristDumpPosition1, wristDumpPosition2, wristDumpPosition3};
 
 
-    public ClawArm(DcMotor aM) { //, Servo cS, Servo wS) {
+    protected double wristGrabPosition = 0.45;
+    protected double wristDumpPosition1 = 0.6;
+    protected double wristDumpPosition2 = 0.75;
+    protected double wristDumpPosition3 = 0.9;
+
+    double clawReleasePosition = 0.0;
+    double clawHoldPosition = 0.5;
+
+    public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
-       // clawServo = cS;
-        //wristServo = wS;
+        clawServo = cS;
+        wristServo = wS;
         //do I need to move anything on init?
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
@@ -47,7 +48,6 @@ public class ClawArm {
         }   //max.jpeg
       */
 
-        //TODO: fix the jump of armValue from 0 to 3 - wait on input?
         if(gp.a) {
             //armValue--;
             if(!armMotor.isBusy()) {
@@ -65,6 +65,13 @@ public class ClawArm {
                 telemetry.update();
             }
         }
+
+        if(gp.x) {
+            release();
+        }
+        else if(gp.y) {
+            hold();
+        }
     }
 
 
@@ -75,45 +82,60 @@ public class ClawArm {
             armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition1);
             //wristServo.setPosition(wristPosition[armValue]);
         }
-        if(armValue == 1) {
+        else if(armValue == 1) {
             armValue++;
             armMotor.setTargetPosition(armDumpPosition2);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition2);
         }
-        if(armValue == 2) {
+        else if(armValue == 2) {
             armValue++;
             armMotor.setTargetPosition(armDumpPosition3);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition3);
         }
     }
 
 
     public void grab() {
-        if(armValue == 1) {
-            armValue--;
-            armMotor.setTargetPosition(armGrabPosition);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            //wristServo.setPosition(wristPosition[armValue]);
-        }
-        if(armValue == 2) {
+
+        if(armValue == 3) {
+        armValue--;
+        armMotor.setTargetPosition(armDumpPosition2);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.2);
+        wristServo.setPosition(wristDumpPosition2);
+        //wristServo.setPosition(wristPosition[armValue]);
+    }
+        else if(armValue == 2) {
             armValue--;
             armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristDumpPosition1);
             //wristServo.setPosition(wristPosition[armValue]);
         }
-        if(armValue == 3) {
+        else if(armValue == 1) {
             armValue--;
-            armMotor.setTargetPosition(armDumpPosition2);
+            armMotor.setTargetPosition(armGrabPosition);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2);
+            wristServo.setPosition(wristGrabPosition);
             //wristServo.setPosition(wristPosition[armValue]);
         }
+    }
+
+    public void hold() {
+        clawServo.setPosition(clawHoldPosition);
+    }
+
+    public void release() {
+        clawServo.setPosition(clawReleasePosition);
     }
 
     public void jigglypuff() {
