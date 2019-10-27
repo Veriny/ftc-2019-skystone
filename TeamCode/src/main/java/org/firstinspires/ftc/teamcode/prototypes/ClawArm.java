@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.prototypes;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,6 +11,7 @@ public class ClawArm {
     public DcMotor armMotor;
     public Servo clawServo;
     public Servo wristServo;
+    public CRServo servo;
 
     public int armValue = 0;
 
@@ -64,6 +66,7 @@ public class ClawArm {
             }
         }
     }
+
 
 
     public void dump() {

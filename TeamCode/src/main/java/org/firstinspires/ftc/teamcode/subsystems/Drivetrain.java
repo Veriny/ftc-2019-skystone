@@ -7,10 +7,10 @@ public class Drivetrain {
     private DcMotor bottomRight;
     private DcMotor topLeft;
     private DcMotor bottomLeft;
-    public static final int TICKS_PER_ROTATION = 1440;
-    public static final int WHEEL_DIAMETER = 4;
-    public static final double BOT_DIAMETER = 17.5;
-    public static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
+    private static final int TICKS_PER_ROTATION = 1440;
+    private static final int WHEEL_DIAMETER = 4;
+    private static final double BOT_DIAMETER = 17.5;
+    private static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
     public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl, Boolean isAuto) {
         this.topLeft = tl;
         this.bottomRight = br;
@@ -39,6 +39,7 @@ public class Drivetrain {
 
     public void drive(double distance, double power) {
         //TODO: Write method for driving
+        //This code is written such that forward is positive.
         double position  = calculateTicks(distance);
         motorDrive(bottomLeft, position, power);
         motorDrive(bottomRight, position, -power);
@@ -48,27 +49,49 @@ public class Drivetrain {
 
     }
 
-    public void strafe(double distance) {
+    public void strafe(double distance, double power) {
         //TODO: Write code for strafing
+        //This code is written such that right is positive.
+        double position  = calculateTicks(distance);
+        motorDrive(bottomLeft, position, -power);
+        motorDrive(bottomRight, position, power);
+        motorDrive(topLeft, position, power);
+        motorDrive(topRight, position, -power);
 
     }
 
-    public void turn(double degrees) {
+    public void turn(double degrees, double power) {
         //TODO: Write method for turning
-
+        double rotations = degrees / 360;
+        double position = calculateTicks(rotations * BOT_CIRCUMFERENCE);
+        motorDrive(bottomLeft, position, -power);
+        motorDrive(bottomRight, position, -power);
+        motorDrive(topLeft, position, -power);
+        motorDrive(topRight, position, -power);
     }
 
-    public void motorDrive(DcMotor motor, double ticks, double power) {
+    private void motorDrive(DcMotor motor, double ticks, double power) {
         //TODO: MotorDrive
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition((int) ticks);
         motor.setPower(power);
     }
 
-    public double calculateTicks(double inches) {
-        return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION;
-
+    private double calculateTicks(double inches) {
+        return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION * Math.sqrt(2);
     }
+
+    private void jigglypuff() {
+        while (bottomLeft.isBusy() || topLeft.isBusy() || bottomRight.isBusy() || topRight.isBusy()) {
+            //do nothing
+        }
+        //I'm not sure if it's good practice to reset encoders every time we move - this may slow things down and we may have to change this in order to squeeze a few extra seconds out of auto in the future
+        bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
 
 }
 
