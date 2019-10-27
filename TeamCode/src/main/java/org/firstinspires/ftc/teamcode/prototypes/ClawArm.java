@@ -33,7 +33,7 @@ public class ClawArm {
         armMotor = aM;
         clawServo = cS;
         wristServo = wS;
-        //do I need to move anything on init?
+        //do I need to move anything on init? c
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
