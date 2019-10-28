@@ -11,14 +11,13 @@ public class ClawArm {
     public DcMotor armMotor;
     public Servo clawServo;
     public Servo wristServo;
-    public CRServo servo;
 
     public int armValue = 0;
 
-    protected int armGrabPosition = -50;
-    protected int armDumpPosition1 = -400;
-    protected int armDumpPosition2 = -550;
-    protected int armDumpPosition3 = -700;
+    protected int armGrabPosition = 50;
+    protected int armDumpPosition1 = 400;
+    protected int armDumpPosition2 = 550;
+    protected int armDumpPosition3 = 700;
 
 
     protected double wristGrabPosition = 0.45;
