@@ -10,13 +10,13 @@ public class FoundationClaw {
 
     //servos in same orientation I think
     double pushPosition = 0.5;
-    double restPosition = 0.0;
-
+    double restPositionA = 0.0;
+    double restPositionB = 1.0;
     public FoundationClaw(Servo a, Servo b) {
         this.servoA = a;
         this.servoB = b;
-        servoA.setPosition(restPosition);
-        servoB.setPosition(restPosition);
+        servoA.setPosition(restPositionA);
+        servoB.setPosition(restPositionB);
     }
 
     public void controls() {
@@ -35,8 +35,8 @@ public class FoundationClaw {
     }
 
     public void rest() {
-        servoA.setPosition(restPosition);
-        servoA.setPosition(restPosition);
+        servoA.setPosition(restPositionA);
+        servoA.setPosition(restPositionB);
     }
 
 }
