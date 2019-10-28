@@ -14,6 +14,7 @@ public class AutoA extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true);
         waitForStart();
-        robot.drive(10, 1);
+        robot.drive(24, 1);
+
     }
 }

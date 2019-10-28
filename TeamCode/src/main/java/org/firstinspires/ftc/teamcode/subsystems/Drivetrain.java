@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 public class Drivetrain {
@@ -22,6 +23,8 @@ public class Drivetrain {
             topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            topRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         }
     }
@@ -42,9 +45,10 @@ public class Drivetrain {
         //This code is written such that forward is positive.
         double position  = calculateTicks(distance);
         motorDrive(bottomLeft, position, power);
-        motorDrive(bottomRight, position, -power);
+        motorDrive(bottomRight, position, power);
         motorDrive(topLeft, position, power);
-        motorDrive(topRight, position, -power);
+        motorDrive(topRight, position, power);
+        jigglypuff();
 
 
     }
@@ -57,28 +61,33 @@ public class Drivetrain {
         motorDrive(bottomRight, position, power);
         motorDrive(topLeft, position, power);
         motorDrive(topRight, position, -power);
-
+        jigglypuff();
     }
 
     public void turn(double degrees, double power) {
         //TODO: Write method for turning
         double rotations = degrees / 360;
-        double position = calculateTicks(rotations * BOT_CIRCUMFERENCE);
+        double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
         motorDrive(bottomLeft, position, -power);
         motorDrive(bottomRight, position, -power);
         motorDrive(topLeft, position, -power);
         motorDrive(topRight, position, -power);
+        jigglypuff();
     }
 
     private void motorDrive(DcMotor motor, double ticks, double power) {
         //TODO: MotorDrive
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition((int) ticks);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(power);
     }
 
-    private double calculateTicks(double inches) {
+    private double calculateTicksRot(double inches) {
         return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION * Math.sqrt(2);
+    }
+
+    private double calculateTicks(double inches) {
+        return (inches / (WHEEL_DIAMETER * Math.PI) * TICKS_PER_ROTATION * Math.sqrt(2));
     }
 
     private void jigglypuff() {
