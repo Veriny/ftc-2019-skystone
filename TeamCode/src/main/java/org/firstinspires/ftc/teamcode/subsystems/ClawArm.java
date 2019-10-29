@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -20,22 +19,22 @@ public class ClawArm {
     protected int armDumpPosition3 = 700;
 
 
-    protected double wristGrabPosition = 0.45;
-    protected double wristDumpPosition1 = 0.6;
-    protected double wristDumpPosition2 = 0.75;
-    protected double wristDumpPosition3 = 0.9;
+    protected double wristGrabPosition = 0.0;
+    protected double wristDumpPosition1 = 0.25;
+    protected double wristDumpPosition2 = 0.50;
+    protected double wristDumpPosition3 = 0.75;
 
     double clawReleasePosition = 0.0;
-    double clawHoldPosition = 0.5;
+    double clawHoldPosition = 0.6;
 
     public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
         clawServo = cS;
         wristServo = wS;
         //do I need to move anything on init? c
-        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         armMotor.setPower(0.0);
-        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void controls(Gamepad gp, Telemetry telemetry) {
@@ -47,86 +46,93 @@ public class ClawArm {
         }   //max.jpeg
       */
 
-        if(gp.a) {
-            //armValue--;
-            if(!armMotor.isBusy()) {
-                grab();
-                telemetry.addData("armValue ", armValue);
-                telemetry.update();
-            }
+        if (gp.a) {
+            grab();
         }
 
-        if(gp.b) {
-            //armValue++;
-            if(!armMotor.isBusy()) {
-                dump();
-                telemetry.addData("armValue ", armValue);
-                telemetry.update();
-            }
+        if (gp.b) {
+            wristPos1();
+        }
+
+        if(gp.y) {
+            wristPos2();
         }
 
         if(gp.x) {
-            release();
+            wristPos3();
         }
-        else if(gp.y) {
+
+
+        if (gp.dpad_left) {
+            wrist0();
+        }
+
+        if (gp.dpad_right) {
+            wrist1();
+        }
+
+        if (gp.dpad_up) {
+            release();
+        } else if (gp.dpad_down) {
             hold();
         }
-    }
 
 
 
-    public void dump() {
-        if(armValue == 0) {
-            armValue++;
-            armMotor.setTargetPosition(armDumpPosition1);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            wristServo.setPosition(wristDumpPosition1);
-            //wristServo.setPosition(wristPosition[armValue]);
+        if (gp.left_bumper) {
+            armDown();
         }
-        else if(armValue == 1) {
-            armValue++;
-            armMotor.setTargetPosition(armDumpPosition2);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            wristServo.setPosition(wristDumpPosition2);
+
+        else if (gp.right_bumper) {
+            armUp();
         }
-        else if(armValue == 2) {
-            armValue++;
-            armMotor.setTargetPosition(armDumpPosition3);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            wristServo.setPosition(wristDumpPosition3);
+
+        else {
+            armMotor.setPower(0.0);
         }
     }
 
+
+    public void armUp() {
+        armMotor.setPower(0.25);
+    }
+
+    public void armDown() {
+        armMotor.setPower(-0.25);
+    }
 
     public void grab() {
-
-        if(armValue == 3) {
-        armValue--;
-        armMotor.setTargetPosition(armDumpPosition2);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.2);
-        wristServo.setPosition(wristDumpPosition2);
-        //wristServo.setPosition(wristPosition[armValue]);
-    }
-        else if(armValue == 2) {
-            armValue--;
-            armMotor.setTargetPosition(armDumpPosition1);
+            /*armMotor.setTargetPosition(armDumpPosition1);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
-            wristServo.setPosition(wristDumpPosition1);
-            //wristServo.setPosition(wristPosition[armValue]);
-        }
-        else if(armValue == 1) {
-            armValue--;
-            armMotor.setTargetPosition(armGrabPosition);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2);
+            armMotor.setPower(0.2); */
             wristServo.setPosition(wristGrabPosition);
             //wristServo.setPosition(wristPosition[armValue]);
+    }
+
+    public void wristPos1() {
+        wristServo.setPosition(wristDumpPosition1);
+    }
+
+    public void wristPos2() {
+            /*armMotor.setTargetPosition(armDumpPosition2);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2); */
+        wristServo.setPosition(wristDumpPosition2);
+    }
+
+    public void wristPos3() {
+            /*armMotor.setTargetPosition(armDumpPosition3);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.2); */
+            wristServo.setPosition(wristDumpPosition3);
         }
+
+
+    public void wrist1() {
+        wristServo.setPosition(1.0);
+    }
+    public void wrist0() {
+        wristServo.setPosition(0.0);
     }
 
     public void hold() {

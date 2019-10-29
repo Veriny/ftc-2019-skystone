@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class FoundationClaw {
     public Servo servoA;
     public Servo servoB;
-    public Gamepad gp;
 
     //servos in same orientation I think
     double pushPosition = 0.5;
@@ -19,7 +18,7 @@ public class FoundationClaw {
         servoB.setPosition(restPositionB);
     }
 
-    public void controls() {
+    public void controls(Gamepad gp) {
         if(gp.dpad_up) {
             push();
         }

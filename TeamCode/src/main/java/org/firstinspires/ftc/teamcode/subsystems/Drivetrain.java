@@ -31,7 +31,7 @@ public class Drivetrain {
     //김정은
     public void controls(Gamepad gp) {
         //TODO: Code Mecanum Bullshit
-        float x = (float)(Math.pow(gp.left_stick_y, 3));
+        float x = (float)(Math.pow(-gp.left_stick_y, 3));
         float y = (float)(Math.pow(gp.left_stick_x, 3));
         float z = (float)(Math.pow(gp.right_stick_x, 3));
         bottomLeft.setPower((x)+(y)+(-z));
