@@ -5,16 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 
-import java.sql.Driver;
-
-@Autonomous(name="uwu", group = "pepega")
-public class AutoA extends LinearOpMode {
+@Autonomous(name = "owo", group = "pepegahands")
+public class AutoB extends LinearOpMode {
     public Drivetrain robot;
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true, telemetry);
         waitForStart();
-        robot.drive(24, 1);
-        
+
     }
+
 }
