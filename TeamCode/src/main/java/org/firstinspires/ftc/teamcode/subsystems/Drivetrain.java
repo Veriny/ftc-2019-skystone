@@ -11,6 +11,7 @@ public class Drivetrain {
     private DcMotor bottomRight;
     private DcMotor topLeft;
     private DcMotor bottomLeft;
+    private Telemetry telemetry;
     private static final int TICKS_PER_ROTATION = 1440;
     private static final int WHEEL_DIAMETER = 4;
     private static final double BOT_DIAMETER = 17.5;
@@ -20,6 +21,7 @@ public class Drivetrain {
         this.bottomRight = br;
         this.topRight = tr;
         this.bottomLeft = bl;
+        this.telemetry = t;
 
         if(isAuto) {
             topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -65,6 +67,7 @@ public class Drivetrain {
         motorDrive(topLeft, position, power);
         motorDrive(topRight, position, -power);
         jigglypuff();
+        telemetry.addLine("Moved with position ticks: " + position);
     }
 
     public void turn(double degrees, double power) {
@@ -76,6 +79,7 @@ public class Drivetrain {
         motorDrive(topLeft, position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
+        telemetry.addLine("Moved with position ticks: " + position);
     }
 
     private void motorDrive(DcMotor motor, double ticks, double power) {
