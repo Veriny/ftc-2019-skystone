@@ -54,11 +54,11 @@ public class ClawArm {
             wristPos1();
         }
 
-        if(gp.y) {
+        else if(gp.y) {
             wristPos2();
         }
 
-        if(gp.x) {
+        else if(gp.x) {
             wristPos3();
         }
 
@@ -67,7 +67,7 @@ public class ClawArm {
             wrist0();
         }
 
-        if (gp.dpad_right) {
+        else if (gp.dpad_right) {
             wrist1();
         }
 

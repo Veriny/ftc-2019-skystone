@@ -30,7 +30,6 @@ public class Drivetrain {
             bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             topRight.setDirection(DcMotorSimple.Direction.REVERSE);
             bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
         }
     }
     //김정은
@@ -54,7 +53,7 @@ public class Drivetrain {
         motorDrive(topLeft, position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
-
+        telemetry.addLine("Drove to position with tick advance count: " + position);
 
     }
 

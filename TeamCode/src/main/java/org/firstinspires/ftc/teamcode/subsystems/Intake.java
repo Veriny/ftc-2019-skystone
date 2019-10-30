@@ -13,10 +13,10 @@ public class Intake {
     }
 
     public void controls(Gamepad gp) {
-        if(gp.left_bumper) {
+        if(gp.left_bumper && !gp.right_bumper) {
             intake();
         }
-        else if(gp.right_bumper) {
+        else if(gp.right_bumper && !gp.left_bumper) {
             outtake();
         }
         else {
