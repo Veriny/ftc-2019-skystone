@@ -22,7 +22,7 @@ public class teleOP extends OpMode {
         drivetrain = new Drivetrain(hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), false, telemetry);
         clawArm = new ClawArm(hardwareMap.dcMotor.get("armMotor"), hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));// hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));
         intake = new Intake(hardwareMap.dcMotor.get("leftIntake"), hardwareMap.dcMotor.get("rightIntake"));
-        foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"),hardwareMap.servo.get("rightFoundationServo"));
+        foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"), hardwareMap.servo.get("rightFoundationServo"));
     }
 
     @Override
@@ -38,7 +38,6 @@ public class teleOP extends OpMode {
         clawArm.controls(gamepad2, telemetry);
         intake.controls(gamepad1);
         foundationClaw.controls(gamepad1);
-
     }
 
     @Override

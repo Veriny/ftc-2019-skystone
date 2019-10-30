@@ -15,6 +15,6 @@ public class AutoA extends LinearOpMode {
         robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true, telemetry);
         waitForStart();
         robot.drive(24, 1);
-        
+
     }
 }
