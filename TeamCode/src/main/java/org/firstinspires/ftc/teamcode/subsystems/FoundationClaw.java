@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class FoundationClaw {
-    public Servo servoA;
-    public Servo servoB;
+    private Servo servoA;
+    private Servo servoB;
 
     //servos in same orientation I think
-    double pushPosition = 0.5;
-    double restPositionA = 0.0;
-    double restPositionB = 1.0;
+    private final double pushPosition = 0.5;
+    private final double restPositionA = 0.0;
+    private final double restPositionB = 1.0;
     public FoundationClaw(Servo a, Servo b) {
         this.servoA = a;
         this.servoB = b;

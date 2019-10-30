@@ -19,7 +19,7 @@ public class teleOP extends OpMode {
     @Override
     public void init() {
         //TODO: Initialize Drivetrain Object
-        drivetrain = new Drivetrain(hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), false);
+        drivetrain = new Drivetrain(hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), false, telemetry);
         clawArm = new ClawArm(hardwareMap.dcMotor.get("armMotor"), hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));// hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));
         intake = new Intake(hardwareMap.dcMotor.get("leftIntake"), hardwareMap.dcMotor.get("rightIntake"));
         foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"),hardwareMap.servo.get("rightFoundationServo"));
@@ -28,6 +28,7 @@ public class teleOP extends OpMode {
     @Override
     public void start() {
         super.start();
+        telemetry.addLine("Robot started");
     }
 
     @Override
@@ -43,5 +44,6 @@ public class teleOP extends OpMode {
     @Override
     public void stop() {
         super.stop();
+        telemetry.addLine("Robot stopped");
     }
 }

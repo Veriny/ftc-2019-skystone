@@ -3,6 +3,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class Drivetrain {
     private DcMotor topRight;
     private DcMotor bottomRight;
@@ -12,7 +15,7 @@ public class Drivetrain {
     private static final int WHEEL_DIAMETER = 4;
     private static final double BOT_DIAMETER = 17.5;
     private static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
-    public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl, Boolean isAuto) {
+    public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl, Boolean isAuto, Telemetry t) {
         this.topLeft = tl;
         this.bottomRight = br;
         this.topRight = tr;
@@ -34,10 +37,10 @@ public class Drivetrain {
         float x = (float)(Math.pow(-gp.left_stick_y, 3));
         float y = (float)(Math.pow(gp.left_stick_x, 3));
         float z = (float)(Math.pow(gp.right_stick_x, 3));
-        bottomLeft.setPower((x)+(y)+(-z));
-        topLeft.setPower((x)+(-y)+(-z));
-        bottomRight.setPower((-x)+(y)+(-z));
-        topRight.setPower((-x)+(-y)+(-z));
+        bottomLeft.setPower(-((x)+(y)+(-z)));
+        topLeft.setPower(-((x)+(-y)+(-z)));
+        bottomRight.setPower(-((-x)+(y)+(-z)));
+        topRight.setPower(-((-x)+(-y)+(-z)));
     }
 
     public void drive(double distance, double power) {
@@ -68,10 +71,10 @@ public class Drivetrain {
         //TODO: Write method for turning
         double rotations = degrees / 360;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
-        motorDrive(bottomLeft, position, -power);
-        motorDrive(bottomRight, position, -power);
-        motorDrive(topLeft, position, -power);
-        motorDrive(topRight, position, -power);
+        motorDrive(bottomLeft, position, power);
+        motorDrive(bottomRight, position, power);
+        motorDrive(topLeft, position, power);
+        motorDrive(topRight, position, power);
         jigglypuff();
     }
 
@@ -83,11 +86,11 @@ public class Drivetrain {
     }
 
     private double calculateTicksRot(double inches) {
-        return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION * Math.sqrt(2);
+        return (inches / WHEEL_DIAMETER) * TICKS_PER_ROTATION;
     }
 
     private double calculateTicks(double inches) {
-        return (inches / (WHEEL_DIAMETER * Math.PI) * TICKS_PER_ROTATION * Math.sqrt(2));
+        return (inches / (WHEEL_DIAMETER * Math.PI) * TICKS_PER_ROTATION);
     }
 
     private void jigglypuff() {
