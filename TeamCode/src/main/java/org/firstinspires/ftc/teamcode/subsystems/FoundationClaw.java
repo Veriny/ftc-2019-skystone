@@ -19,23 +19,23 @@ public class FoundationClaw {
     }
 
     public void controls(Gamepad gp) {
-        if(gp.dpad_up) {
+        if(gp.a) {
             push();
         }
 
-        else if(gp.dpad_down) {
+        else if(gp.b) {
             rest();
         }
     }
 
     public void push() {
         servoA.setPosition(pushPosition);
-        servoA.setPosition(pushPosition);
+        servoB.setPosition(pushPosition);
     }
 
     public void rest() {
         servoA.setPosition(restPositionA);
-        servoA.setPosition(restPositionB);
+        servoB.setPosition(restPositionB);
     }
 
 }
