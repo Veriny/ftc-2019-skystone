@@ -11,30 +11,31 @@ public class ClawArm {
     public Servo clawServo;
     public Servo wristServo;
 
-    public int armValue = 0;
+    //public int armValue = 0;
 
-    protected int armGrabPosition = 50;
-    protected int armDumpPosition1 = 400;
-    protected int armDumpPosition2 = 550;
-    protected int armDumpPosition3 = 700;
+    protected int armGrabPosition = 0;
+    int armGrabPosition2 = 450;
+    protected int armDumpPosition1 = 700;
+    protected int armDumpPosition2 = 850;
+    protected int armDumpPosition3 = 1000;
 
 
     protected double wristGrabPosition = 0.0;
-    protected double wristDumpPosition1 = 0.25;
-    protected double wristDumpPosition2 = 0.50;
-    protected double wristDumpPosition3 = 0.75;
+    protected double wristDumpPosition1 = 0.64;
+    protected double wristDumpPosition2 = 0.73;
+    protected double wristDumpPosition3 = 0.83;
 
-    double clawReleasePosition = 0.0;
-    double clawHoldPosition = 0.6;
+    double clawReleasePosition = 0.2;
+    double clawHoldPosition = 0.8;
 
     public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
         clawServo = cS;
         wristServo = wS;
         //do I need to move anything on init? c
-        armMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
-        //armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void controls(Gamepad gp, Telemetry telemetry) {
@@ -47,20 +48,26 @@ public class ClawArm {
       */
 
         if (gp.a) {
-            grab();
+            armGrab();
         }
 
-        if (gp.b) {
-            wristPos1();
+        else if(gp.b) {
+            armDump1();
         }
 
         else if(gp.y) {
-            wristPos2();
+            armDump2();
         }
 
         else if(gp.x) {
-            wristPos3();
+            armDump3();
         }
+
+        /*else {
+            armMotor.setPower(0.0);
+        } */
+
+
 
 
         if (gp.dpad_left) {
@@ -79,7 +86,7 @@ public class ClawArm {
 
 
 
-        if (gp.left_bumper) {
+       /* if (gp.left_bumper) {
             armDown();
         }
 
@@ -89,24 +96,50 @@ public class ClawArm {
 
         else {
             armMotor.setPower(0.0);
-        }
+        } */
     }
 
 
-    public void armUp() {
-        armMotor.setPower(0.25);
+    /*public void armUp() {
+        armMotor.setPower(0.35);
     }
 
     public void armDown() {
-        armMotor.setPower(-0.25);
+        armMotor.setPower(-0.35);
+    }*/
+
+    public void armGrab() {
+            armMotor.setTargetPosition(armGrabPosition);
+            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armMotor.setPower(0.15);
+            wristServo.setPosition(wristGrabPosition);
     }
 
-    public void grab() {
-            /*armMotor.setTargetPosition(armDumpPosition1);
-            armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            armMotor.setPower(0.2); */
-            wristServo.setPosition(wristGrabPosition);
-            //wristServo.setPosition(wristPosition[armValue]);
+    public void armDump1() {
+        armMotor.setTargetPosition(armGrabPosition2);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.14);
+        wristServo.setPosition(wristDumpPosition1);
+        while(armMotor.isBusy());
+
+        armMotor.setTargetPosition(armDumpPosition1);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.05);
+
+    }
+
+    public void armDump2() {
+        armMotor.setTargetPosition(armDumpPosition2);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.13);
+        wristServo.setPosition(wristDumpPosition2);
+    }
+
+    public void armDump3() {
+        armMotor.setTargetPosition(armDumpPosition3);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.12);
+        wristServo.setPosition(wristDumpPosition3);
     }
 
     public void wristPos1() {
