@@ -53,25 +53,24 @@ public class Drivetrain {
         //TODO: Write method for driving
         //This code is written such that forward is positive.
         double position  = calculateTicks(distance);
+        telemetry.addLine("Moved with position ticks: " + position);
         motorDrive(bottomLeft, position, power);
         motorDrive(bottomRight, position, power);
         motorDrive(topLeft, position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
-        telemetry.addLine("Drove to position with tick advance count: " + position);
-
     }
 
     public void strafe(double distance, double power) {
         //TODO: Write code for strafing
         //This code is written such that right is positive.
         double position  = calculateTicks(distance);
-        motorDrive(bottomLeft, position, -power);
+        telemetry.addLine("Moved with position ticks: " + position);
+        motorDrive(bottomLeft, position, power);
         motorDrive(bottomRight, position, power);
         motorDrive(topLeft, position, power);
-        motorDrive(topRight, position, -power);
+        motorDrive(topRight, position, power);
         jigglypuff();
-        telemetry.addLine("Moved with position ticks: " + position);
     }
 
     public void turn(double degrees, double power) {
@@ -84,6 +83,13 @@ public class Drivetrain {
         motorDrive(topRight, position, power);
         jigglypuff();
         telemetry.addLine("Moved with position ticks: " + position);
+    }
+
+    public void REEEEEEE() {
+        topLeft.setPower(1);
+        bottomRight.setPower(1);
+        topRight.setPower(1);
+        bottomLeft.setPower(1);
     }
 
     private void motorDrive(DcMotor motor, double ticks, double power) {
@@ -110,6 +116,14 @@ public class Drivetrain {
         topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    public void update() {
+        telemetry.addData("BL: ", bottomLeft.getCurrentPosition());
+        telemetry.addData("TL: " , topLeft.getCurrentPosition());
+        telemetry.addData("BR: " , bottomRight.getCurrentPosition());
+        telemetry.addData("TR: " , topRight.getCurrentPosition());
+        telemetry.update();
     }
 
 

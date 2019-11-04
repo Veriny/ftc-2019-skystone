@@ -133,6 +133,7 @@ public class ClawArm {
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.13);
         wristServo.setPosition(wristDumpPosition2);
+        jigglypuff();
     }
 
     public void armDump3() {
