@@ -26,7 +26,7 @@ public class ClawArm {
     protected double wristDumpPosition3 = 0.83;
 
     double clawReleasePosition = 0.2;
-    double clawHoldPosition = 0.8;
+    double clawHoldPosition = 0.82;
 
     public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
@@ -70,17 +70,18 @@ public class ClawArm {
 
 
 
-        if (gp.dpad_left) {
+      /*  if (gp.dpad_left) {
             wrist0();
         }
 
         else if (gp.dpad_right) {
             wrist1();
-        }
+        } */
 
         if (gp.dpad_up) {
             release();
-        } else if (gp.dpad_down) {
+        }
+        else if (gp.dpad_down) {
             hold();
         }
 
@@ -118,7 +119,7 @@ public class ClawArm {
     public void armDump1() {
         armMotor.setTargetPosition(armGrabPosition2);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        armMotor.setPower(0.14);
+        armMotor.setPower(0.13);
         wristServo.setPosition(wristDumpPosition1);
         while(armMotor.isBusy());
 
@@ -162,12 +163,12 @@ public class ClawArm {
         }
 
 
-    public void wrist1() {
+  /*  public void wrist1() {
         wristServo.setPosition(1.0);
     }
     public void wrist0() {
         wristServo.setPosition(0.0);
-    }
+    }   */
 
     public void hold() {
         clawServo.setPosition(clawHoldPosition);
