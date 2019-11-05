@@ -24,20 +24,47 @@ public class Drivetrain {
         this.telemetry = t;
 
         if(isAuto) {
+            topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
             topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            topRight.setDirection(DcMotorSimple.Direction.REVERSE);
-            bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            //topRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            //bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            topLeft.setDirection(DcMotor.Direction.FORWARD);
+            topRight.setDirection(DcMotor.Direction.REVERSE);
+            bottomLeft.setDirection(DcMotor.Direction.FORWARD);
+            bottomRight.setDirection(DcMotor.Direction.REVERSE);
+        }
+
+        else {
+            topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //topRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            //bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            topLeft.setDirection(DcMotor.Direction.FORWARD);
+            topRight.setDirection(DcMotor.Direction.FORWARD);
+            bottomLeft.setDirection(DcMotor.Direction.FORWARD);
+            bottomRight.setDirection(DcMotor.Direction.FORWARD);
         }
     }
     //김정은
     public void controls(Gamepad gp) {
         //TODO: Code Mecanum Bullshit
         float x = (float)(Math.pow(-gp.left_stick_y, 3));
-        float y = (float)(Math.pow(gp.left_stick_x, 3));
-        float z = (float)(Math.pow(gp.right_stick_x, 3));
+        float y = (float)(Math.pow(-gp.left_stick_x, 3));
+        float z = (float)(Math.pow(-gp.right_stick_x, 3));
         if (gp.left_trigger != 0) {
             x /=3;
             y /=3;
@@ -54,10 +81,10 @@ public class Drivetrain {
         //This code is written such that forward is positive.
         double position  = calculateTicks(distance);
         telemetry.addLine("Moved with position ticks: " + position);
-        motorDrive(bottomLeft, position, power);
-        motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, position, power);
-        motorDrive(topRight, position, power);
+        motorDrive(bottomLeft, -position, power);
+        motorDrive(bottomRight, -position, power);
+        motorDrive(topLeft, -position, power);
+        motorDrive(topRight, -position, power);
         jigglypuff();
     }
 
@@ -67,8 +94,8 @@ public class Drivetrain {
         double position  = calculateTicks(distance);
         telemetry.addLine("Moved with position ticks: " + position);
         motorDrive(bottomLeft, position, power);
-        motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, position, power);
+        motorDrive(bottomRight, -position, power);
+        motorDrive(topLeft, -position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
     }

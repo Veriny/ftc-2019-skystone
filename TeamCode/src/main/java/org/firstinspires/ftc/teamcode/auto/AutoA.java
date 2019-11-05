@@ -14,8 +14,10 @@ public class AutoA extends LinearOpMode {
     public ClawArm clawArm;
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new Drivetrain(hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), false, telemetry);
+        robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true, telemetry);
         waitForStart();
-        robot.strafe(24, 1);
+        robot.drive(12, 1.0);
+        robot.strafe(8, 1.0);
+        robot.turn(45,0.75);
     }
 }
