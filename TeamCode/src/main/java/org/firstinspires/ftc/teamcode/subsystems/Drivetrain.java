@@ -104,9 +104,9 @@ public class Drivetrain {
         //TODO: Write method for turning
         double rotations = degrees / 360;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
-        motorDrive(bottomLeft, position, power);
+        motorDrive(bottomLeft, -position, power);
         motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, position, power);
+        motorDrive(topLeft, -position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
         telemetry.addLine("Moved with position ticks: " + position);
