@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -10,6 +11,8 @@ public class ClawArm {
     public DcMotor armMotor;
     public Servo clawServo;
     public Servo wristServo;
+
+    ElapsedTime time = new ElapsedTime();
 
     //public int armValue = 0;
 
@@ -36,6 +39,7 @@ public class ClawArm {
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        clawServo.setPosition(clawReleasePosition);
     }
 
     public void controls(Gamepad gp, Telemetry telemetry) {
@@ -109,6 +113,12 @@ public class ClawArm {
         armMotor.setPower(-0.35);
     }*/
 
+    public void armUp() {
+        armMotor.setTargetPosition(200);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.3);
+    }
+
     public void armGrab() {
             armMotor.setTargetPosition(armGrabPosition);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -120,9 +130,9 @@ public class ClawArm {
         armMotor.setTargetPosition(armGrabPosition2);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.13);
+        //pause();
         wristServo.setPosition(wristDumpPosition1);
         while(armMotor.isBusy());
-
         armMotor.setTargetPosition(armDumpPosition1);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.05);
@@ -180,10 +190,12 @@ public class ClawArm {
 
     public void jigglypuff() {
         while (armMotor.isBusy()) {
-
-
         }
-
-
     }
+
+   /* public void pause() {
+        time.reset();
+        while(time.milliseconds() < 333) {
+        }
+    }   */
 }

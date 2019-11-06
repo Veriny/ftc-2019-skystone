@@ -38,4 +38,14 @@ public class Intake {
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
     }
+
+
+    public void intake(double power) {
+        intakeMotors(leftMotor, power);
+        intakeMotors(rightMotor, -power);
+    }
+
+    private void intakeMotors(DcMotor motor, double power) {
+        motor.setPower(power);
+    }
 }

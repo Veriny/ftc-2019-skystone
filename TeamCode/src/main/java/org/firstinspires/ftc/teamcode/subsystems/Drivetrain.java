@@ -102,7 +102,7 @@ public class Drivetrain {
 
     public void turn(double degrees, double power) {
         //TODO: Write method for turning
-        double rotations = degrees / 360;
+        double rotations = degrees / 360 / 2.67;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
         motorDrive(bottomLeft, -position, power);
         motorDrive(bottomRight, position, power);
@@ -111,6 +111,7 @@ public class Drivetrain {
         jigglypuff();
         telemetry.addLine("Moved with position ticks: " + position);
     }
+
 
     public void REEEEEEE() {
         topLeft.setPower(1);
