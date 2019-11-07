@@ -8,10 +8,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-import java.sql.Driver;
-
 @Autonomous(name="bruhchamp", group = "pepega")
-public class AutoA extends LinearOpMode {
+public class AutoRedBuilding extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
     public Intake intake;
@@ -25,7 +23,7 @@ public class AutoA extends LinearOpMode {
         foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"), hardwareMap.servo.get("rightFoundationServo"));
 
         waitForStart();
-        robot.drive(-12, 0.8);
+        //robot.drive(-12, 0.8);
         robot.strafe(24, 0.8);
         clawArm.armUp();
         intake.intake();
@@ -33,14 +31,15 @@ public class AutoA extends LinearOpMode {
         intake.stop();
         clawArm.armGrab();
         clawArm.hold();
-        robot.strafe(-20, 0.8);
+        robot.strafe(-18, 0.8);
         robot.drive(-72,0.8);
         robot.turn(-90,0.8);
         robot.drive(-12,0.8);
         foundationClaw.push();
         robot.drive(24,0.3);
         foundationClaw.rest();
-        robot.strafe(36,0.8);
-
+        robot.strafe(20,0.8);
+        robot.drive(-10,0.8);
+        robot.strafe(16,0.8);
     }
 }
