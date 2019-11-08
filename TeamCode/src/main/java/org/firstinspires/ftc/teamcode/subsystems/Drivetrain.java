@@ -30,6 +30,8 @@ public class Drivetrain {
             bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             topRight.setDirection(DcMotorSimple.Direction.REVERSE);
             bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            topLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+            bottomLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         }
     }
     //김정은
