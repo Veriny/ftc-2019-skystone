@@ -8,12 +8,14 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name = "owo", group = "pepegahands")
+@Autonomous(name = "AutoBlueBuilding", group = "pepegahands")
 public class AutoBlueBuilding extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
     public Intake intake;
     public FoundationClaw foundationClaw;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,6 +45,13 @@ public class AutoBlueBuilding extends LinearOpMode {
         robot.strafe(-16,0.8);
 
 
+    }
+
+    @Override
+    protected void handleLoop() {
+        super.handleLoop();
+        robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true, telemetry);
+        robot.update();
     }
 
 }

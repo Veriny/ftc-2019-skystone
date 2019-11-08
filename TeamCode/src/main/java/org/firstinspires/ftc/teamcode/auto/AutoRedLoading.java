@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.sql.Driver;
 
-@Autonomous(name="bruhchamp", group = "pepega")
+@Autonomous(name="AutoRedLoading", group = "pepega")
 public class AutoRedLoading extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;

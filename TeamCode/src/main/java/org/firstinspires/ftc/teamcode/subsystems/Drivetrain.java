@@ -42,7 +42,7 @@ public class Drivetrain {
         }
 
         else {
-            topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            /*topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -50,21 +50,21 @@ public class Drivetrain {
             topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bottomRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            //topRight.setDirection(DcMotorSimple.Direction.REVERSE);
+            bottomRight.t.setMode(DcMotor.RunMode.RUN_USING_ENCODER); */
+            //            //topRighsetDirection(DcMotorSimple.Direction.REVERSE);
             //bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
             topLeft.setDirection(DcMotor.Direction.FORWARD);
-            topRight.setDirection(DcMotor.Direction.FORWARD);
+            topRight.setDirection(DcMotor.Direction.REVERSE);
             bottomLeft.setDirection(DcMotor.Direction.FORWARD);
-            bottomRight.setDirection(DcMotor.Direction.FORWARD);
+            bottomRight.setDirection(DcMotor.Direction.REVERSE);
         }
     }
     //김정은
     public void controls(Gamepad gp) {
         //TODO: Code Mecanum Bullshit
-        float x = (float)(Math.pow(-gp.left_stick_y, 3));
+        float z = (float)(Math.pow(gp.left_stick_y, 3));
         float y = (float)(Math.pow(-gp.left_stick_x, 3));
-        float z = (float)(Math.pow(-gp.right_stick_x, 3));
+        float x = (float)(Math.pow(gp.right_stick_x, 3));
         if (gp.left_trigger != 0) {
             x /=3;
             y /=3;
@@ -72,8 +72,8 @@ public class Drivetrain {
         }
         bottomLeft.setPower(-((x)+(y)+(-z)));
         topLeft.setPower(-((x)+(-y)+(-z)));
-        bottomRight.setPower(-((-x)+(y)+(-z)));
-        topRight.setPower(-((-x)+(-y)+(-z)));
+        bottomRight.setPower(-((-x)+(-y)+(-z)));
+        topRight.setPower(-((-x)+(y)+(-z)));
     }
 
     public void drive(double distance, double power) {
@@ -81,11 +81,12 @@ public class Drivetrain {
         //This code is written such that forward is positive.
         double position  = calculateTicks(distance);
         telemetry.addLine("Moved with position ticks: " + position);
-        motorDrive(bottomLeft, -position, power);
-        motorDrive(bottomRight, -position, power);
-        motorDrive(topLeft, -position, power);
-        motorDrive(topRight, -position, power);
+        motorDrive(bottomLeft, position, -power);
+        motorDrive(bottomRight, position, -power);
+        motorDrive(topLeft, position, -power);
+        motorDrive(topRight, position, -power);
         jigglypuff();
+        resetEncoders();
     }
 
     public void strafe(double distance, double power) {
@@ -94,36 +95,34 @@ public class Drivetrain {
         double position  = calculateTicks(distance);
         telemetry.addLine("Moved with position ticks: " + position);
         motorDrive(bottomLeft, position, power);
-        motorDrive(bottomRight, -position, power);
-        motorDrive(topLeft, -position, power);
+        motorDrive(bottomRight, position, -power);
+        motorDrive(topLeft, position, -power);
         motorDrive(topRight, position, power);
         jigglypuff();
+        resetEncoders();
     }
 
     public void turn(double degrees, double power) {
         //TODO: Write method for turning
         double rotations = degrees / 360 / 2.67;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
-        motorDrive(bottomLeft, -position, power);
+        motorDrive(bottomLeft, position, -power);
         motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, -position, power);
+        motorDrive(topLeft, position, -power);
         motorDrive(topRight, position, power);
         jigglypuff();
+        resetEncoders();
         telemetry.addLine("Moved with position ticks: " + position);
-    }
-
-
-    public void REEEEEEE() {
-        topLeft.setPower(1);
-        bottomRight.setPower(1);
-        topRight.setPower(1);
-        bottomLeft.setPower(1);
     }
 
     private void motorDrive(DcMotor motor, double ticks, double power) {
         //TODO: MotorDrive
         motor.setTargetPosition((int) ticks);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motor.setPower(power);
+    }
+
+    private void intakeMotors(DcMotor motor, double power) {
         motor.setPower(power);
     }
 
@@ -136,14 +135,11 @@ public class Drivetrain {
     }
 
     private void jigglypuff() {
-        while (bottomLeft.isBusy() || topLeft.isBusy() || bottomRight.isBusy() || topRight.isBusy()) {
+        while (topRight.isBusy() || topLeft.isBusy() || bottomLeft.isBusy() || bottomRight.isBusy()) {
             //do nothing
         }
         //I'm not sure if it's good practice to reset encoders every time we move - this may slow things down and we may have to change this in order to squeeze a few extra seconds out of auto in the future
-        bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
     public void update() {
@@ -153,6 +149,15 @@ public class Drivetrain {
         telemetry.addData("TR: " , topRight.getCurrentPosition());
         telemetry.update();
     }
+
+    public void resetEncoders(){
+        bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+    }
+
 
 
 }

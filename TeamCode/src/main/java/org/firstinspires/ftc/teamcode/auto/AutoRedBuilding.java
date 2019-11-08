@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name="bruhchamp", group = "pepega")
+@Autonomous(name="AutoRedBuilding", group = "pepega")
 public class AutoRedBuilding extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;

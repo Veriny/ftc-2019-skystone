@@ -130,7 +130,7 @@ public class ClawArm {
         armMotor.setTargetPosition(armGrabPosition2);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.13);
-        //pause();
+        pause();
         wristServo.setPosition(wristDumpPosition1);
         while(armMotor.isBusy());
         armMotor.setTargetPosition(armDumpPosition1);
@@ -193,9 +193,9 @@ public class ClawArm {
         }
     }
 
-   /* public void pause() {
+   public void pause() {
         time.reset();
-        while(time.milliseconds() < 333) {
+        while(time.milliseconds() < 750) {
         }
-    }   */
+    }
 }
