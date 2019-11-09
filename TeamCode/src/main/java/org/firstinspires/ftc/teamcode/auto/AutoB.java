@@ -51,16 +51,16 @@ public class AutoB extends LinearOpMode {
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-18, 0.8);
+        robot.strafe(-12, 0.8);
         clawArm.wrist1();
         time.reset();
         while(time.milliseconds() < 500) {
         }
         clawArm.wrist0();
-        robot.drive(-60,1.0);
+        robot.drive(-58,1.0);
         robot.turn(-90,0.8);
         clawArm.hold();
-        robot.drive(-15,0.5);
+        robot.drive(-8,0.5);
 
         //start to deposit
         time.reset();
@@ -68,7 +68,7 @@ public class AutoB extends LinearOpMode {
         }
         clawArm.armDump1();
         time.reset();
-        while(time.milliseconds() < 750) {
+        while(time.milliseconds() < 600) {
         }
         clawArm.armDump3();
         time.reset();

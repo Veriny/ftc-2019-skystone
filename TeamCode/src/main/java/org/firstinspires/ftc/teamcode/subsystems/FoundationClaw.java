@@ -8,8 +8,9 @@ public class FoundationClaw {
     private Servo servoB;
 
     //servos in same orientation I think
-    private final double pushPosition = 0.5;
-    private final double restPositionA = 0.0;
+    private final double pushPositionA = 0.63;
+    private final double pushPositionB = 0.45;
+    private final double restPositionA = 0.08;
     private final double restPositionB = 1.0;
     public FoundationClaw(Servo a, Servo b) {
         this.servoA = a;
@@ -29,8 +30,8 @@ public class FoundationClaw {
     }
 
     public void push() {
-        servoA.setPosition(pushPosition);
-        servoB.setPosition(pushPosition);
+        servoA.setPosition(pushPositionA);
+        servoB.setPosition(pushPositionB);
     }
 
     public void rest() {

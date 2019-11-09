@@ -118,6 +118,12 @@ public class ClawArm {
         armMotor.setPower(-0.35);
     }*/
 
+    public void armFlick() {
+        armMotor.setTargetPosition(100);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.25);
+    }
+
     public void armUp() {
         armMotor.setTargetPosition(200);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

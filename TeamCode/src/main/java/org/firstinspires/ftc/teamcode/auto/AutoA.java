@@ -29,13 +29,13 @@ public class AutoA extends LinearOpMode {
 
         waitForStart();
         robot.update();
-        robot.strafe(16,0.8);
+        robot.strafe(16,0.7);
         time.reset();
-        while(time.milliseconds() < 250) {
+        while(time.milliseconds() < 125) {
         }
         robot.drive(-10,0.8);
         time.reset();
-        while(time.milliseconds() < 250) {
+        while(time.milliseconds() < 125) {
         }
         robot.strafe(14,0.8);
         robot.update();
@@ -47,30 +47,32 @@ public class AutoA extends LinearOpMode {
         robot.drive(6, 0.3);
         intake.stop();
         time.reset();
-        while(time.milliseconds() < 750) {
+        while(time.milliseconds() < 500) {
         }
         intake.stop();
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-18, 0.8);
+        robot.strafe(-16, 0.6);
+        robot.turn(-3,0.6);
+        clawArm.armFlick();
+        time.reset();
+        while(time.milliseconds() < 500) {
+        }
         clawArm.wrist1();
         time.reset();
         while(time.milliseconds() < 500) {
         }
-        clawArm.wrist0();
-        robot.drive(-60,1.0);
+        clawArm.armGrab();
+        robot.drive(-62,0.8);
         robot.turn(-90,0.8);
         clawArm.hold();
-        robot.drive(-15,0.5);
+        robot.drive(-12,0.5);
 
         //start to deposit
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
         clawArm.armDump1();
         time.reset();
-        while(time.milliseconds() < 750) {
+        while(time.milliseconds() < 250) {
         }
         clawArm.armDump3();
         time.reset();
@@ -89,18 +91,21 @@ public class AutoA extends LinearOpMode {
 
         //drags foundation
         robot.drive(-1,0.4);
-        robot.drive(26,0.35);
+        robot.drive(27,0.4);
         foundationClaw.rest();
+        robot.drive(-0.5,0.4);
 
         //parks
-        robot.strafe(22,0.8);
+        robot.strafe(24,0.9);
         time.reset();
         while(time.milliseconds() < 250) {
         }
-        robot.drive(-14,0.8);
+        robot.drive(-16,0.9);
+        robot.strafe(-8,0.8);
+        robot.drive(-4,1.0);
         time.reset();
         while(time.milliseconds() < 250) {
         }
-        robot.strafe(14,0.8);
+        robot.strafe(18,1.0);
     }
 }
