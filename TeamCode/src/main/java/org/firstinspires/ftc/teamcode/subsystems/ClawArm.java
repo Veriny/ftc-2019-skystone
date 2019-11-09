@@ -3,14 +3,17 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+import static java.lang.Thread.sleep;
 
 public class ClawArm {
     public DcMotor armMotor;
     public Servo clawServo;
     public Servo wristServo;
-
+    private ElapsedTime timeX;
     //public int armValue = 0;
 
     protected int armGrabPosition = 0;
@@ -28,6 +31,7 @@ public class ClawArm {
     double clawReleasePosition = 0.2;
     double clawHoldPosition = 0.8;
 
+
     public ClawArm(DcMotor aM, Servo cS, Servo wS) {
         armMotor = aM;
         clawServo = cS;
@@ -36,6 +40,7 @@ public class ClawArm {
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setPower(0.0);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        timeX = new ElapsedTime();
     }
 
     public void controls(Gamepad gp, Telemetry telemetry) {
@@ -62,6 +67,9 @@ public class ClawArm {
         else if(gp.x) {
             armDump3();
         }
+        else if(gp.left_bumper) {
+            armUp();
+        }
 
         /*else {
             armMotor.setPower(0.0);
@@ -83,7 +91,9 @@ public class ClawArm {
         } else if (gp.dpad_down) {
             hold();
         }
-
+        else if(gp.right_bumper) {
+            capstoneHold();
+        }
 
 
        /* if (gp.left_bumper) {
@@ -108,6 +118,12 @@ public class ClawArm {
         armMotor.setPower(-0.35);
     }*/
 
+    public void armUp() {
+        armMotor.setTargetPosition(200);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        armMotor.setPower(0.25);
+    }
+
     public void armGrab() {
             armMotor.setTargetPosition(armGrabPosition);
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -116,9 +132,13 @@ public class ClawArm {
     }
 
     public void armDump1() {
+        timeX.reset();
         armMotor.setTargetPosition(armGrabPosition2);
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         armMotor.setPower(0.14);
+        while(timeX.milliseconds() < 750) {
+
+        }
         wristServo.setPosition(wristDumpPosition1);
         while(armMotor.isBusy());
 
@@ -159,11 +179,17 @@ public class ClawArm {
             armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             armMotor.setPower(0.2); */
             wristServo.setPosition(wristDumpPosition3);
-        }
+    }
+
+    public void capstoneHold() {
+        clawServo.setPosition(1.0);
+    }
+
+
 
 
     public void wrist1() {
-        wristServo.setPosition(1.0);
+        wristServo.setPosition(0.2);
     }
     public void wrist0() {
         wristServo.setPosition(0.0);

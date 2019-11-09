@@ -10,6 +10,9 @@ public class Intake {
     public Intake(DcMotor lM, DcMotor rM) {
         this.leftMotor = lM;
         this.rightMotor = rM;
+
+        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void controls(Gamepad gp) {

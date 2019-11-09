@@ -24,6 +24,11 @@ public class Drivetrain {
         this.telemetry = t;
 
         if(isAuto) {
+            topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            
             topLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -69,8 +74,8 @@ public class Drivetrain {
         double position  = calculateTicks(distance);
         telemetry.addLine("Moved with position ticks: " + position);
         motorDrive(bottomLeft, position, power);
-        motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, position, power);
+        motorDrive(bottomRight, -position, power);
+        motorDrive(topLeft, -position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
     }
@@ -79,9 +84,9 @@ public class Drivetrain {
         //TODO: Write method for turning
         double rotations = degrees / 360;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
-        motorDrive(bottomLeft, position, power);
+        motorDrive(bottomLeft, -position, power);
         motorDrive(bottomRight, position, power);
-        motorDrive(topLeft, position, power);
+        motorDrive(topLeft, -position, power);
         motorDrive(topRight, position, power);
         jigglypuff();
         telemetry.addLine("Moved with position ticks: " + position);
