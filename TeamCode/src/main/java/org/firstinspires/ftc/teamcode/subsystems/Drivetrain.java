@@ -51,7 +51,7 @@ public class Drivetrain {
             topRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             bottomRight.t.setMode(DcMotor.RunMode.RUN_USING_ENCODER); */
-            //            //topRighsetDirection(DcMotorSimple.Direction.REVERSE);
+            //            topRighsetDirection(DcMotorSimple.Direction.REVERSE);
             //bottomRight.setDirection(DcMotorSimple.Direction.REVERSE);
             topLeft.setDirection(DcMotor.Direction.FORWARD);
             topRight.setDirection(DcMotor.Direction.REVERSE);
