@@ -28,22 +28,19 @@ public class AutoA extends LinearOpMode {
         time = new ElapsedTime();
 
         waitForStart();
-        //robot.drive(-12, 0.8);
         robot.update();
-        //robot.strafe(24, 0.8);
-
         robot.strafe(16,0.8);
         time.reset();
         while(time.milliseconds() < 250) {
         }
-
         robot.drive(-10,0.8);
         time.reset();
         while(time.milliseconds() < 250) {
         }
-
         robot.strafe(14,0.8);
         robot.update();
+
+        //start to collect stone
         clawArm.release();
         clawArm.armUp();
         intake.autoIntake();
@@ -53,37 +50,34 @@ public class AutoA extends LinearOpMode {
         while(time.milliseconds() < 750) {
         }
         intake.stop();
-
         clawArm.armGrab();
+
+        //done with collection
         robot.strafe(-18, 0.8);
         clawArm.wrist1();
         time.reset();
         while(time.milliseconds() < 500) {
         }
         clawArm.wrist0();
-
         robot.drive(-60,1.0);
         robot.turn(-90,0.8);
         clawArm.hold();
         robot.drive(-15,0.5);
 
+        //start to deposit
         time.reset();
         while(time.milliseconds() < 500) {
         }
-
         clawArm.armDump1();
         time.reset();
         while(time.milliseconds() < 750) {
         }
-
         clawArm.armDump3();
         time.reset();
         while(time.milliseconds() < 500) {
         }
-
         foundationClaw.push();
-
-        clawArm.release();
+        clawArm.release();  //dumps here
         time.reset();
         while(time.milliseconds() < 250) {
         }
@@ -92,15 +86,17 @@ public class AutoA extends LinearOpMode {
         while(time.milliseconds() < 250) {
         }
         clawArm.armGrab();
-        robot.drive(-1,0.4);
 
+        //drags foundation
+        robot.drive(-1,0.4);
         robot.drive(26,0.35);
         foundationClaw.rest();
+
+        //parks
         robot.strafe(22,0.8);
         time.reset();
         while(time.milliseconds() < 250) {
         }
-
         robot.drive(-14,0.8);
         time.reset();
         while(time.milliseconds() < 250) {
