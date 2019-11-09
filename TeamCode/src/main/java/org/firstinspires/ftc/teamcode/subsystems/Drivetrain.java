@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -16,6 +17,7 @@ public class Drivetrain {
     private static final int WHEEL_DIAMETER = 4;
     private static final double BOT_DIAMETER = 17.5;
     private static final double BOT_CIRCUMFERENCE = Math.PI*BOT_DIAMETER;
+    private ElapsedTime timeX;
     public Drivetrain(DcMotor tr, DcMotor br, DcMotor tl, DcMotor bl, Boolean isAuto, Telemetry t) {
         this.topLeft = tl;
         this.bottomRight = br;
@@ -132,6 +134,14 @@ public class Drivetrain {
         telemetry.addData("BR: " , bottomRight.getCurrentPosition());
         telemetry.addData("TR: " , topRight.getCurrentPosition());
         telemetry.update();
+    }
+
+    public void residentSleeper(int ms) {
+        timeX.reset();
+        while (timeX.milliseconds() < ms){
+            continue;
+        }
+
     }
 
 

@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.sql.Driver;
 
-@Autonomous(name="bruhchamp", group = "pepega")
+@Autonomous(name="Blue_Collect_Deposit_FoundationDrag_Park", group = "pepega")
 public class AutoA extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
@@ -30,13 +30,9 @@ public class AutoA extends LinearOpMode {
         waitForStart();
         robot.update();
         robot.strafe(16,0.7);
-        time.reset();
-        while(time.milliseconds() < 125) {
-        }
+        robot.residentSleeper(125);
         robot.drive(-10,0.8);
-        time.reset();
-        while(time.milliseconds() < 125) {
-        }
+        robot.residentSleeper(125);
         robot.strafe(14,0.8);
         robot.update();
 
@@ -44,25 +40,20 @@ public class AutoA extends LinearOpMode {
         clawArm.release();
         clawArm.armUp();
         intake.autoIntake();
-        robot.drive(6, 0.3);
+        robot.drive(6, 0.5);
         intake.stop();
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
+        robot.residentSleeper(500);
         intake.stop();
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-16, 0.6);
-        robot.turn(-3,0.6);
+        robot.strafe(-16, 0.7);
+        robot.turn(-3,0.7);
         clawArm.armFlick();
         time.reset();
-        while(time.milliseconds() < 500) {
-        }
+        robot.residentSleeper(500);
         clawArm.wrist1();
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
+        robot.residentSleeper(500);
         clawArm.armGrab();
         robot.drive(-62,0.8);
         robot.turn(-90,0.8);
@@ -71,22 +62,14 @@ public class AutoA extends LinearOpMode {
 
         //start to deposit
         clawArm.armDump1();
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(250);
         clawArm.armDump3();
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
+        robot.residentSleeper(500);
         foundationClaw.push();
         clawArm.release();  //dumps here
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(250);
         clawArm.armDump1();
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(250);
         clawArm.armGrab();
 
         //drags foundation
@@ -97,15 +80,11 @@ public class AutoA extends LinearOpMode {
 
         //parks
         robot.strafe(24,0.9);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(250);
         robot.drive(-16,0.9);
         robot.strafe(-8,0.8);
         robot.drive(-4,1.0);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(250);
         robot.strafe(18,1.0);
     }
 }
