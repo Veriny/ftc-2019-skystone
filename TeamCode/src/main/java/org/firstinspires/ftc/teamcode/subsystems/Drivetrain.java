@@ -137,6 +137,7 @@ public class Drivetrain {
     }
 
     public void residentSleeper(int ms) {
+        timeX = new ElapsedTime();
         timeX.reset();
         while (timeX.milliseconds() < ms){
             continue;
