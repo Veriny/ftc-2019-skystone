@@ -51,9 +51,9 @@ public class AutoA extends LinearOpMode {
         robot.turn(-3,0.7);
         clawArm.armFlick();
         time.reset();
-        robot.residentSleeper(500);
+        robot.residentSleeper(400);
         clawArm.wrist1();
-        robot.residentSleeper(500);
+        robot.residentSleeper(400);
         clawArm.armGrab();
         robot.drive(-62,0.8);
         robot.turn(-90,0.8);
@@ -62,24 +62,24 @@ public class AutoA extends LinearOpMode {
 
         //start to deposit
         clawArm.armDump1();
-        robot.residentSleeper(250);
+        robot.residentSleeper(200);
         clawArm.armDump3();
-        robot.residentSleeper(500);
+        robot.residentSleeper(400);
         foundationClaw.push();
         clawArm.release();  //dumps here
-        robot.residentSleeper(250);
+        robot.residentSleeper(200);
         clawArm.armDump1();
-        robot.residentSleeper(250);
+        robot.residentSleeper(200);
         clawArm.armGrab();
 
         //drags foundation
         robot.drive(-1,0.4);
-        robot.drive(27,0.4);
+        robot.drive(30,.6);
         foundationClaw.rest();
         robot.drive(-0.5,0.4);
 
         //parks
-        robot.strafe(24,0.9);
+        robot.strafe(24,1);
         robot.residentSleeper(250);
         robot.drive(-16,0.9);
         robot.strafe(-8,0.8);
