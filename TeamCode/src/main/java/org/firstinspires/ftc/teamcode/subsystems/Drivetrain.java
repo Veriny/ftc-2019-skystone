@@ -82,7 +82,7 @@ public class Drivetrain {
 
     public void turn(double degrees, double power) {
         //TODO: Write method for turning
-        double rotations = degrees / 360;
+        double rotations = degrees / 360 / 2.67;
         double position = calculateTicksRot(rotations * BOT_CIRCUMFERENCE);
         motorDrive(bottomLeft, -position, power);
         motorDrive(bottomRight, position, power);
@@ -115,7 +115,8 @@ public class Drivetrain {
     }
 
     private void jigglypuff() {
-        while (bottomLeft.isBusy() || topLeft.isBusy() || bottomRight.isBusy() || topRight.isBusy()) {
+        while ((topLeft.isBusy() && topRight.isBusy() && bottomLeft.isBusy()) || (topLeft.isBusy() && topRight.isBusy() && bottomRight.isBusy()) ||
+                (topLeft.isBusy() && bottomLeft.isBusy() && bottomRight.isBusy()) || (topRight.isBusy() && bottomLeft.isBusy() && bottomRight.isBusy())) {
             //do nothing
         }
         //I'm not sure if it's good practice to reset encoders every time we move - this may slow things down and we may have to change this in order to squeeze a few extra seconds out of auto in the future

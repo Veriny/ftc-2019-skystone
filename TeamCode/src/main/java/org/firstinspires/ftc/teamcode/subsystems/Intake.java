@@ -27,6 +27,11 @@ public class Intake {
         }
     }
 
+    public void autoIntake() {
+        leftMotor.setPower(-1.0);
+        rightMotor.setPower(1.0);
+    }
+
     public void intake() {
         leftMotor.setPower(1.0);
         rightMotor.setPower(-1.0);
