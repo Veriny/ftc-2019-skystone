@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 @Autonomous(name="Blue(Buildside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
+@Disabled
 public class AutoC extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
@@ -26,28 +28,6 @@ public class AutoC extends LinearOpMode {
         time = new ElapsedTime();
 
         waitForStart();
-
-
-        //done with collection
-        robot.strafe(12, 0.7);
-        //robot.turn(-3,0.7);
-        clawArm.armFlick();
-        robot.residentSleeper(400);
-        clawArm.wrist1();
-        robot.residentSleeper(400);
-        clawArm.armGrab();
-        robot.drive(-28,0.8);
-        robot.turn(-90,0.8);
-        clawArm.hold();
-        robot.drive(-12,0.5);
-
-
-
-        //drags foundation
-        robot.drive(-1,0.4);
-        robot.drive(30,1);
-        foundationClaw.rest();
-        //robot.drive(-0.5,0.4);
 
         //parks
         robot.strafe(24,1);
