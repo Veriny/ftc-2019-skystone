@@ -70,6 +70,19 @@ public class Drivetrain {
         jigglypuff();
     }
 
+    public void drive(double distance, double power, String m) {
+        //TODO: Write method for driving
+        //This code is written such that forward is positive.
+        double position  = calculateTicks(distance);
+        telemetry.addLine("Moved with position ticks: " + position);
+        motorDrive(bottomLeft, position, power);
+        motorDrive(bottomRight, position, power);
+        motorDrive(topLeft, position, power);
+        motorDrive(topRight, position, power);
+        //No jiggs
+    }
+
+
     public void strafe(double distance, double power) {
         //TODO: Write code for strafing
         //This code is written such that right is positive.
@@ -122,6 +135,13 @@ public class Drivetrain {
             //do nothing
         }
         //I'm not sure if it's good practice to reset encoders every time we move - this may slow things down and we may have to change this in order to squeeze a few extra seconds out of auto in the future
+        bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        topLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+
+    private void resetOnly() {
         bottomRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         topRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         bottomLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
