@@ -24,7 +24,7 @@ public class teleOP extends OpMode {
         intake = new Intake(hardwareMap.dcMotor.get("leftIntake"), hardwareMap.dcMotor.get("rightIntake"));
         foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"), hardwareMap.servo.get("rightFoundationServo"));
     }
-
+    
     @Override
     public void start() {
         super.start();
