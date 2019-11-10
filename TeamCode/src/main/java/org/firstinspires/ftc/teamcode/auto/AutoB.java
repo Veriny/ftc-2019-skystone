@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-@Autonomous(name = "owo", group = "pepegahands")
+@Autonomous(name="Blue(Stoneside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
 public class AutoB extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
@@ -18,7 +18,7 @@ public class AutoB extends LinearOpMode {
     private ElapsedTime time;
     @Override
     public void runOpMode() throws InterruptedException {
-        robot = new Drivetrain(hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), true, telemetry);
+        robot = new Drivetrain(hardwareMap.dcMotor.get("topLeftMotor"), hardwareMap.dcMotor.get("bottomLeftMotor"), hardwareMap.dcMotor.get("topRightMotor"), hardwareMap.dcMotor.get("bottomRightMotor"), true, telemetry);
         clawArm = new ClawArm(hardwareMap.dcMotor.get("armMotor"), hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));// hardwareMap.servo.get("clawServo"), hardwareMap.servo.get("wristServo"));
         intake = new Intake(hardwareMap.dcMotor.get("leftIntake"), hardwareMap.dcMotor.get("rightIntake"));
         foundationClaw = new FoundationClaw(hardwareMap.servo.get("leftFoundationServo"), hardwareMap.servo.get("rightFoundationServo"));
@@ -26,79 +26,61 @@ public class AutoB extends LinearOpMode {
 
         waitForStart();
         robot.update();
-        robot.strafe(16,0.8);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
-        //robot.drive(-10,0.8);
-        robot.drive(4,0.8);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
-        robot.strafe(14,0.8);
+        robot.strafe(-16,0.7);
+        robot.residentSleeper(125);
+        robot.drive(-10,0.8);
+        robot.residentSleeper(125);
+        robot.strafe(-14,0.8);
         robot.update();
 
         //start to collect stone
         clawArm.release();
         clawArm.armUp();
         intake.autoIntake();
-        robot.drive(6, 0.3);
+        robot.drive(6, 0.5);
         intake.stop();
-        time.reset();
-        while(time.milliseconds() < 750) {
-        }
+        robot.residentSleeper(500);
         intake.stop();
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-12, 0.8);
+        robot.strafe(12, 0.7);
+        //robot.turn(-3,0.7);
+        clawArm.armFlick();
+        robot.residentSleeper(400);
         clawArm.wrist1();
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
-        clawArm.wrist0();
-        robot.drive(-58,1.0);
-        robot.turn(-90,0.8);
+        robot.residentSleeper(400);
+        clawArm.armGrab();
+        robot.drive(-62,0.8);
+        robot.turn(90,0.8);
         clawArm.hold();
-        robot.drive(-8,0.5);
+        robot.drive(12,0.5);
 
         //start to deposit
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
         clawArm.armDump1();
-        time.reset();
-        while(time.milliseconds() < 600) {
-        }
+        robot.residentSleeper(200);
         clawArm.armDump3();
-        time.reset();
-        while(time.milliseconds() < 500) {
-        }
+        robot.residentSleeper(400);
         foundationClaw.push();
         clawArm.release();  //dumps here
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(200);
         clawArm.armDump1();
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
+        robot.residentSleeper(200);
         clawArm.armGrab();
 
         //drags foundation
-        robot.drive(-1,0.4);
-        robot.drive(26,0.35);
+        robot.drive(1,0.4);
+        robot.drive(-30,1);
         foundationClaw.rest();
+        //robot.drive(-0.5,0.4);
 
         //parks
-        robot.strafe(22,0.8);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
-        robot.drive(-14,0.8);
-        time.reset();
-        while(time.milliseconds() < 250) {
-        }
-        robot.strafe(14,0.8);
+        robot.strafe(24,1);
+        robot.residentSleeper(250);
+        robot.drive(16,0.9);
+        robot.strafe(-8,0.8);
+        robot.drive(4,1.0);
+        robot.residentSleeper(250);
+        robot.strafe(18,1.0);
     }
 }
