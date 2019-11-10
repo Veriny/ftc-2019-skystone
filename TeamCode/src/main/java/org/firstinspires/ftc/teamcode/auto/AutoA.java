@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
 import java.sql.Driver;
 
-@Autonomous(name="Blue(Stoneside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
+@Autonomous(name="Red(Stoneside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
 public class AutoA extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
