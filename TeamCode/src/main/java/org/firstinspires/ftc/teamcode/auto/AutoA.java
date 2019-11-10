@@ -47,10 +47,9 @@ public class AutoA extends LinearOpMode {
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-16, 0.7);
-        robot.turn(-3,0.7);
+        robot.strafe(-12, 0.7);
+        //robot.turn(-3,0.7);
         clawArm.armFlick();
-        time.reset();
         robot.residentSleeper(400);
         clawArm.wrist1();
         robot.residentSleeper(400);
@@ -74,9 +73,9 @@ public class AutoA extends LinearOpMode {
 
         //drags foundation
         robot.drive(-1,0.4);
-        robot.drive(30,.6);
+        robot.drive(30,1);
         foundationClaw.rest();
-        robot.drive(-0.5,0.4);
+        //robot.drive(-0.5,0.4);
 
         //parks
         robot.strafe(24,1);
