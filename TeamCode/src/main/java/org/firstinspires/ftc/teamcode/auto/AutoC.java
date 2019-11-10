@@ -9,10 +9,8 @@ import org.firstinspires.ftc.teamcode.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.subsystems.FoundationClaw;
 import org.firstinspires.ftc.teamcode.subsystems.Intake;
 
-import java.sql.Driver;
-
-@Autonomous(name="Blue(Stoneside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
-public class AutoA extends LinearOpMode {
+@Autonomous(name="Blue(Buildside)_Collect_Deposit_FoundationDrag_Park", group = "pepega")
+public class AutoC extends LinearOpMode {
     public Drivetrain robot;
     public ClawArm clawArm;
     public Intake intake;
@@ -28,48 +26,22 @@ public class AutoA extends LinearOpMode {
         time = new ElapsedTime();
 
         waitForStart();
-        robot.update();
-        robot.strafe(16,0.7);
-        robot.residentSleeper(125);
-        robot.drive(-10,0.8);
-        robot.residentSleeper(125);
-        robot.strafe(14,0.8);
-        robot.update();
 
-        //start to collect stone
-        clawArm.release();
-        clawArm.armUp();
-        intake.autoIntake();
-        robot.drive(6, 0.5);
-        intake.stop();
-        robot.residentSleeper(500);
-        intake.stop();
-        clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-12, 0.7);
+        robot.strafe(12, 0.7);
         //robot.turn(-3,0.7);
         clawArm.armFlick();
         robot.residentSleeper(400);
         clawArm.wrist1();
         robot.residentSleeper(400);
         clawArm.armGrab();
-        robot.drive(-62,0.8);
+        robot.drive(-28,0.8);
         robot.turn(-90,0.8);
         clawArm.hold();
         robot.drive(-12,0.5);
 
-        //start to deposit
-        clawArm.armDump1();
-        robot.residentSleeper(200);
-        clawArm.armDump3();
-        robot.residentSleeper(400);
-        foundationClaw.push();
-        clawArm.release();  //dumps here
-        robot.residentSleeper(200);
-        clawArm.armDump1();
-        robot.residentSleeper(200);
-        clawArm.armGrab();
+
 
         //drags foundation
         robot.drive(-1,0.4);
