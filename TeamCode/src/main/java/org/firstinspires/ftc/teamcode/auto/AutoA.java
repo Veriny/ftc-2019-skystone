@@ -33,7 +33,7 @@ public class AutoA extends LinearOpMode {
         robot.residentSleeper(125);
         robot.drive(-10,0.8);
         robot.residentSleeper(125);
-        robot.strafe(14,0.8);
+        robot.strafe(15,0.8);
         robot.update();
 
         //start to collect stone
@@ -47,43 +47,43 @@ public class AutoA extends LinearOpMode {
         clawArm.armGrab();
 
         //done with collection
-        robot.strafe(-12, 0.7);
+        robot.strafe(-12.5, 0.7);
         //robot.turn(-3,0.7);
         clawArm.armFlick();
         robot.residentSleeper(400);
         clawArm.wrist1();
         robot.residentSleeper(400);
         clawArm.armGrab();
-        robot.drive(-62,0.8);
+        robot.drive(-61,0.8);
         robot.turn(-90,0.8);
         clawArm.hold();
-        robot.drive(-12,0.5);
+        robot.drive(-8,0.5);
 
         //start to deposit
         clawArm.armDump1();
-        robot.residentSleeper(200);
+        robot.residentSleeper(500);
         clawArm.armDump3();
-        robot.residentSleeper(400);
+        robot.residentSleeper(500);
         foundationClaw.push();
         clawArm.release();  //dumps here
         robot.residentSleeper(200);
         clawArm.armDump1();
-        robot.residentSleeper(200);
+        robot.residentSleeper(250);
         clawArm.armGrab();
 
         //drags foundation
         robot.drive(-1,0.4);
-        robot.drive(30,1);
+        robot.drive(26,1);
         foundationClaw.rest();
         //robot.drive(-0.5,0.4);
 
         //parks
-        robot.strafe(24,1);
+        robot.strafe(26,1);
         robot.residentSleeper(250);
         robot.drive(-16,0.9);
-        robot.strafe(-8,0.8);
+        robot.strafe(-6,0.8);
         robot.drive(-4,1.0);
         robot.residentSleeper(250);
-        robot.strafe(18,1.0);
+        robot.strafe(16,1.0);
     }
 }
